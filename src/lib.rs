@@ -9,7 +9,7 @@ mod algos;
 use itertools::Itertools;
 
 pub fn brute_force(
-    hashes: Vec<&[u8]>,
+    hashes: Vec<&str>,
     n: usize,
     possible_chars: String,
 ) -> HashMap<String, String> {
@@ -47,7 +47,7 @@ pub fn brute_force(
 }
 
 pub fn brute_force_itertools(
-    hashes: Vec<&[u8]>,
+    hashes: Vec<&str>,
     n: usize,
     possible_chars: String,
 ) -> HashMap<String, String> {
@@ -57,7 +57,7 @@ pub fn brute_force_itertools(
         .map(Result::unwrap)
         .collect::<Vec<_>>();
 
-    let mut result = HashMap::new();
+    let mut result: HashMap<String, String> = HashMap::new();
 
     for i in 1..=n {
         for p in std::iter::repeat(possible_chars.bytes())
@@ -91,7 +91,7 @@ pub fn brute_force_itertools(
 
 pub fn dictionary_attack(
     dictionary_path: &PathBuf,
-    hashes: Vec<&[u8]>,
+    hashes: Vec<&str>,
 ) -> HashMap<String, String> {
     let f = File::open(dictionary_path).unwrap();
     let f = BufReader::new(f);
